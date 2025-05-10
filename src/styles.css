@@ -1,0 +1,233 @@
+:root {
+  --green: #4CAF50;
+  --red: #F44336;
+  --yellow: #FFEB3B;
+  --blue: #2196F3;
+  --dark-green: #388E3C;
+  --dark-red: #D32F2F;
+  --dark-yellow: #FBC02D;
+  --dark-blue: #1976D2;
+  --background: #1a1a1a;
+  --text: #ffffff;
+  --button-bg: rgba(255, 255, 255, 0.1);
+  --button-hover: rgba(255, 255, 255, 0.2);
+  --button-active: rgba(255, 255, 255, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Press Start 2P', cursive;
+  background-color: var(--background);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.game-container {
+  max-width: 600px;
+  width: 100%;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+#level-title {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  min-height: 2.5rem;
+}
+
+.score-container {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.game-board {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.simon-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  aspect-ratio: 1;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+.simon-button {
+  position: relative;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.1s ease;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.simon-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+}
+
+.button-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 30%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.simon-button.green {
+  background-color: var(--green);
+}
+
+.simon-button.red {
+  background-color: var(--red);
+}
+
+.simon-button.yellow {
+  background-color: var(--yellow);
+}
+
+.simon-button.blue {
+  background-color: var(--blue);
+}
+
+.simon-button.pressed {
+  transform: scale(0.95);
+  filter: brightness(1.2);
+}
+
+.simon-button.green.pressed {
+  background-color: var(--dark-green);
+}
+
+.simon-button.red.pressed {
+  background-color: var(--dark-red);
+}
+
+.simon-button.yellow.pressed {
+  background-color: var(--dark-yellow);
+}
+
+.simon-button.blue.pressed {
+  background-color: var(--dark-blue);
+}
+
+.controls {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.control-button {
+  background: var(--button-bg);
+  border: 2px solid var(--text);
+  color: var(--text);
+  padding: 0.8rem 1.5rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 5px;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.control-button:hover:not(:disabled) {
+  background: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+.control-button:active:not(:disabled) {
+  transform: translateY(0);
+  background: var(--button-active);
+}
+
+.control-button.active {
+  background: var(--button-active);
+  border-color: var(--green);
+}
+
+.control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.game-over {
+  animation: gameOver 0.5s ease-in-out;
+}
+
+@keyframes gameOver {
+  0%, 100% { background-color: var(--background); }
+  50% { background-color: var(--red); }
+}
+
+@media (max-width: 500px) {
+  .simon-container {
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  #level-title {
+    font-size: 1.2rem;
+  }
+  
+  .score-container {
+    font-size: 0.8rem;
+  }
+  
+  .control-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.7rem;
+    min-width: 100px;
+  }
+  
+  .controls {
+    gap: 0.5rem;
+  }
+}
